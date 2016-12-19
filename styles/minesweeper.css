@@ -1,0 +1,163 @@
+﻿table {
+    
+	border: 5px groove lightgrey;
+	table-layout: fixed;
+	border-spacing: 0;
+	
+}
+
+td {
+	padding: 0px;
+	vertical-align: middle;
+	/*margin: 0px;*/
+	/*line-height:20px;*/
+	/*height: 100px;*/
+}
+
+th{
+	page-break-inside: avoid;
+	height: 50px;
+	background-color: lightgray;
+	vertical-align: middle;
+	padding-right: 12px;
+	padding-left: 12px;
+	border-bottom-style: groove
+}
+tr{
+	page-break-inside: avoid;
+	vertical-align: middle;
+	/*margin:0px;*/
+	padding: 0px;
+	/*line-height:25px;*/
+}
+/*
+input{
+	width: 25px;
+	height: 25px;
+}
+*/
+
+.game-tile{
+	width: 25px;
+	height: 25px;
+}
+
+.closed-tile{
+	background-color: darkgrey;
+	font-size: 18px;
+	/*padding: 0px 0px 25px 0px;*/
+	/*vertical-align: middle;*/
+	/*text-align: center;*/
+	/*line-height: 20px;*/
+	padding: 0px 0px 0px 0px;
+}
+
+.closed-tile:hover{
+	background-color: lightsteelblue;
+}
+
+.open-tile{
+	/*border-style: hidden;*/
+	background-color: lightgrey;
+	font-weight:bold;
+	font-size: 16px;
+ }
+
+.open-tile-1{
+	color: blue;
+}
+
+.open-tile-2{
+	color: green;
+}
+
+.open-tile-3{
+	color: red;
+}
+
+.open-tile-4{
+	color: darkblue;
+}
+
+.open-tile-5{
+	color: brown;
+}
+
+.open-tile-6{
+	color: cyan;
+}
+
+.open-tile-7{
+	color: black;
+}
+
+.open-tile-8{
+	color: grey;
+}
+
+.marked-tile{
+	color: red;
+	/*font-size: 14px;*/
+	/*text-shadow: 1px 1px 2px black, 0 0 25px lightgray, 0 0 5px gray;*/
+	vertical-align: bottom;
+	background: darkgrey;
+}
+
+.exploded-tile{
+	 /*color:white;*/
+	 background-color: lightgrey;
+	 /*font-size: 14px;*/
+	 /*font-size: 115%;*/
+	 padding:0px 0px 0px 0px;
+	 /*margin: 2px;*/
+	 vertical-align: bottom;
+
+ }
+
+.exploded-tile-origin{
+	/*color:white;*/
+	background-color: red;
+	/*font-size: 14px;*/
+	/*font-size: 115%;*/
+	padding:0px 0px 0qpx 0px;
+	/*margin: 2px;*/
+	vertical-align: bottom;
+
+}
+
+.btnNewGame{
+	height: 50px;
+	width: 50px;
+	color: Yellow;
+	background: grey;
+	font-size: 36px;
+	text-shadow: 1px 1px 2px black, 0 0 25px lightgray, 0 0 5px gray;
+	vertical-align: bottom;
+}
+
+.bombCount{
+	float: right;
+	background: #300000;
+	text-shadow: 0px 0px 2px black;
+	font-size: 34px;
+	letter-spacing: -4px;
+	font-family:"Courier New", Courier, monospace;
+	color: #FF2000;
+	padding: 3px 6px 0px 2px;
+}
+
+.timer{
+	float: left;
+	background: #300000;
+	vertical-align: middle;
+	text-shadow: 0px 0px 2px black;
+	font-size: 34px;
+	letter-spacing: -4px;
+	font-family:"Courier New", Courier, monospace;
+	color: #FF2000;
+	padding: 3px 6px 0px 2px;
+	
+}
+
+
+input:focus {outline:0;}
