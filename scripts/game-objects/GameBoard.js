@@ -10,6 +10,9 @@ class GameBoard{
         this.freeTilesLeft = maxRows*maxCols-mineCount;
         this.gameStarted = false;
         this.gameOver = false;
+		this.leftClickActive = false
+		this.rightClickActive = false;
+		this.selectedTile =  null;
         // this.timerText ='000';
         // this.flagsText = this.formatNum(mineCount);
         this.timerHandler = null;
@@ -165,6 +168,36 @@ class GameBoard{
 
         return result;
     }
+	
+	uncoverSelection(){
+		let neighbours = this.getNeighbours(this.selectedTile.row, this.selectedTile.col);
+		if (neighbours.filter(x=>x.isMarked).length==this.selectedTile.bombCount){
+			neighbours.forEach(x=>x.open());
+		} else {
+			this.deselectTiles();	
+		}
+	}
+	
+	selectNeighbours(tile){
+		this.selectedTile = tile;
+		let neighbours = this.getNeighbours(tile.row, tile.col);
+		$(neighbours.filter(x=>!(x.isMarked || x.isOpen)).map(y=>y.html))
+			.toggleClass('closed-tile open-title');
+	}
+	
+	deselectTiles(){
+		let neighbours = this.getNeighbours(this.selectedTile.row, this.selectedTile.col);
+		$(neighbours.filter(x=>!(x.isMarked || x.isOpen)).map(y=>y.html))
+			.toggleClass('closed-tile open-title');
+		this.selectedTile =  null;
+	}
+	
+	highlightTiles(){
+		//console.log('hi')
+		//console.dir($(this.selectedTiles.map(x=>x.html)));
+		$(this.selectedTiles.map(x=>x.html))
+			.toggleClass('closed-tile open-title');
+	}
 
     updateFlagCount(delta){
         let newValue = Number(this.flags.text()) + delta;

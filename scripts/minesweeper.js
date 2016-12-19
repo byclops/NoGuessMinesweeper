@@ -1,4 +1,4 @@
-const gameSymbols = {
+﻿const gameSymbols = {
 	startGame:'😊',
 	// startGame:'☻',
 	lost:'😱',
@@ -15,7 +15,7 @@ let timer=null;
 function startApp(){
 	//initGame();
 
-	let game = new GameBoard(16,30,15, gameSymbols)
+	let game = new GameBoard(16,30,60, gameSymbols)
 	$('#game').append(game.html);
 	// console.log(a.game);
 

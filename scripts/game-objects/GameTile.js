@@ -6,7 +6,7 @@ class GameTile{
         this.row = row;
         this.col = col;
         this.game = game;
-        this.bombCount = ' ';
+        this.bombCount = 0;
         this.hasMine = false;
         this.isOpen = false;
         this.isMarked = false;
@@ -15,7 +15,8 @@ class GameTile{
             .attr("row",row)
             .attr("col",col)
             .val(' ')
-            .on("mousedown", this._handleMouseClick.bind(this, arguments));
+			.on("mousedown", this._handleMouseDown.bind(this, arguments))
+            .on("mouseup", this._handleMouseUp.bind(this, arguments));
 
     }
 
@@ -62,15 +63,47 @@ class GameTile{
         }
     }
 
-    _handleMouseClick(bindObj, evt){
+	_handleMouseDown(bindObj, evt){
         if(this.game.gameOver) return;
 
         switch(evt.which){
             case 1:
-                this.open();
+                this.game.leftClickActive = true;
+				//console.log('leftDown');
                 break;
             case 3:
-                this.toggleMark();
+                this.game.rightClickActive = true;
+				//console.log('rightDown');
+                break;
+        }
+		if (this.game.leftClickActive && 
+			this.game.rightClickActive)
+			this.game.selectNeighbours(this);
+    }
+	
+    _handleMouseUp(bindObj, evt){
+        if(this.game.gameOver) return;
+		//let primaryAction = true;
+		if(this.game.leftClickActive && this.game.rightClickActive) {
+			//primaryAction= false;
+			//alert('double');
+			this.game.leftClickActive = false;
+			this.game.rightClickActive = false;
+			this.game.uncoverSelection();
+		}
+		
+        switch(evt.which){
+            case 1:
+                //if (primaryAction) this.open();
+				this.open();
+				this.game.leftClickActive = false;
+				//console.log('leftUp');
+                break;
+            case 3:
+                //if (primaryAction) this.toggleMark();
+				this.toggleMark();
+				this.game.rightClickActive = false;
+				//console.log('rightUp');
                 break;
         }
     }
