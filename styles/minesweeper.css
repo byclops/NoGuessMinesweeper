@@ -9,25 +9,52 @@
 td {
 	padding: 0px;
 	vertical-align: middle;
+
 	/*margin: 0px;*/
 	/*line-height:20px;*/
 	/*height: 100px;*/
 }
 
-th{
+.control-bar{
 	page-break-inside: avoid;
 	height: 50px;
 	background-color: lightgray;
 	vertical-align: middle;
 	padding-right: 12px;
 	padding-left: 12px;
+	border-bottom-style: groove;
+	border-width: 0px 0px 5px 0px;
+}
+
+.menu-bar{
+	page-break-inside: avoid;
+	text-align: left;
+	/*height: 50px;*/
+	background-color: lightgrey;
+	vertical-align: middle;
+	padding-right: 12px;
+	padding-left: 12px;
+	border-bottom-style: solid;
+	border-width: 0px 0px 1px 0px;
+	/*border-width: 0px 0px 3px 0px;*/
+}
+
+.title-bar{
+	page-break-inside: avoid;
+	/*height: 50px;*/
+	background-color: darkblue;
+	color:white;
+	vertical-align: middle;
+	padding-right: 12px;
+	padding-left: 12px;
 	border-bottom-style: groove
 }
+
 tr{
-	page-break-inside: avoid;
-	vertical-align: middle;
+	/*page-break-inside: avoid;*/
+	/*vertical-align: middle;*/
 	/*margin:0px;*/
-	padding: 0px;
+	/*padding: 0px;*/
 	/*line-height:25px;*/
 }
 /*
@@ -40,11 +67,13 @@ input{
 .game-tile{
 	width: 25px;
 	height: 25px;
+	font-size: 16px;
+	font-weight:bold;
 }
 
 .closed-tile{
 	background-color: darkgrey;
-	font-size: 16 px;
+	/*font-size: 16px;*/
 	font-weight:bold;
 	/*
 	font-size: 18px;
@@ -60,7 +89,7 @@ input{
 	/*border-style: hidden;*/
 	background-color: lightgrey;
 	font-weight:bold;
-	font-size: 16px;
+	/*font-size: 16px;*/
  }
 
 .open-tile-1{
@@ -99,14 +128,15 @@ input{
 	color: red;
 	/*font-size: 14px;*/
 	/*text-shadow: 1px 1px 2px black, 0 0 25px lightgray, 0 0 5px gray;*/
-	vertical-align: bottom;
+	/*vertical-align: bottom;*/
 	background: darkgrey;
+
 }
 
 .exploded-tile{
 	 /*color:white;*/
 	 background-color: lightgrey;
-	 /*font-size: 14px;*/
+	 font-size: 12px;
 	 /*font-size: 115%;*/
 	 padding:0px 0px 0px 0px;
 	 /*margin: 2px;*/
@@ -117,7 +147,7 @@ input{
 .exploded-tile-origin{
 	/*color:white;*/
 	background-color: red;
-	/*font-size: 14px;*/
+	font-size: 12px;
 	/*font-size: 115%;*/
 	padding:0px 0px 0qpx 0px;
 	/*margin: 2px;*/
@@ -143,7 +173,7 @@ input{
 	float: right;
 	background: #300000;
 	text-shadow: 0px 0px 2px black;
-	font-size: 34px;
+	font-size: 38px;
 	letter-spacing: -4px;
 	font-family:"Courier New", Courier, monospace;
 	color: #FF2000;
@@ -155,7 +185,7 @@ input{
 	background: #300000;
 	vertical-align: middle;
 	text-shadow: 0px 0px 2px black;
-	font-size: 34px;
+	font-size: 38px;
 	letter-spacing: -4px;
 	font-family:"Courier New", Courier, monospace;
 	color: #FF2000;

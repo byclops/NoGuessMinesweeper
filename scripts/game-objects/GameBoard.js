@@ -13,8 +13,6 @@ class GameBoard{
 		this.leftClickActive = false
 		this.rightClickActive = false;
 		this.selectedTile =  null;
-        // this.timerText ='000';
-        // this.flagsText = this.formatNum(mineCount);
         this.timerHandler = null;
         this.flags = $('<span>')
             .attr('id','mine-counter')
@@ -22,44 +20,31 @@ class GameBoard{
             .addClass('bombCount');
         this.html = $('<table>')
             .attr('id','game')
-            .append($('<th>')
-                .attr("colspan",this.maxCols+1)
-                .append($('<span>')
-                    .attr('id','time-counter')
-                    .text('000')
-                    .addClass('timer'))
-                .append($('<input type="button">')
-                    .val(gameSymbols.startGame)
-                    .attr('id','btnNewGame')
-                    .addClass('btnNewGame')
-                    .click(this._init.bind(this)))
-                .append(this.flags));
+            .append($('<tr>')
+                .append($('<th>')
+                    .addClass('title-bar')
+                    .text('NoGuess Minesweeper')))
+            .append($('<tr>')
+                .append($('<th>')
+                    .addClass('menu-bar')
+                    .text('menu system 123 456')))
+            .append($('<tr>')
+                .append($('<th>')
+                    .addClass('control-bar')
+                    .attr("colspan",this.maxCols+1)
+                    .append($('<span>')
+                        .attr('id','time-counter')
+                        .text('000')
+                        .addClass('timer'))
+                    .append($('<input type="button">')
+                        .val(gameSymbols.startGame)
+                        .attr('id','btnNewGame')
+                        .addClass('btnNewGame')
+                        .click(this._init.bind(this)))
+                    .append(this.flags)));
 
         this._init();
 
-        // this.startTimer();
-
-        // this.game = this.generateField();
-        // this.getNeighbours(15,29).forEach(x=>x.toggleMark());
-        // this.game[0][0].open();
-
-
-        // this.plantMines();
-        // this.updateFlagCount(1);
-        // console.log(this.flagsText)
-
-
-        // console.log(this.game);
-        // this.game.forEach(
-        //     line =>line.forEach(
-        //         tile => tile.html.val(tile.bombCount)));
-        // this.game.forEach(
-        //     line =>line.forEach(
-        //         tile =>{if (tile.hasMine) tile.open()}));
-
-        // this.game.forEach(
-        //     line =>line.forEach(
-        //         tile =>tile.open()));
     }
 
     _init(){
@@ -69,7 +54,6 @@ class GameBoard{
         this.freeTilesLeft = this.maxRows * this.maxCols - this.mineCount;
         this.flags.text(this.formatNum(this.mineCount));
         this.board = this.generateField();
-        // this.plantMines();
     }
 
     plantMines(){
@@ -83,6 +67,7 @@ class GameBoard{
             }
 
         }
+
         this.updateMineCounts();
 
     }
@@ -101,13 +86,13 @@ class GameBoard{
     }
 
     generateField(){
-        this.html.find('tr').remove();
+        this.html.find('.tile-row').remove();
         this.gameOver = false;
 
         let result = [];
         for (let row=0; row<this.maxRows; row++){
             result[row]=[];
-            let currentRow = $('<tr>');
+            let currentRow = $('<tr>').addClass('tile-row');
             for (let col=0; col<this.maxCols; col++){
                 let currentTile = new GameTile(row, col,this);
                 result[row][col]= currentTile;
@@ -193,8 +178,6 @@ class GameBoard{
 	}
 	
 	highlightTiles(){
-		//console.log('hi')
-		//console.dir($(this.selectedTiles.map(x=>x.html)));
 		$(this.selectedTiles.map(x=>x.html))
 			.toggleClass('closed-tile open-title');
 	}
@@ -205,17 +188,19 @@ class GameBoard{
     }
 
     startTimer(){
-        this.timerHandler = window.setInterval(function(){
-            let count = Number($('#time-counter').text());
-            if (count<999){
-                $('#time-counter').text(parseNumToStr(count+1));
-            }
-        }, 1000);
+        this.timerHandler = window.setInterval(this.incrementTimer.bind(this), 1000);
     }
 
     stopTimer(){
         window.clearInterval(this.timerHandler);
         this.timerHandler = null;
+    }
+
+    incrementTimer(){
+        let count = Number($('#time-counter').text());
+        if (count<999){
+            $('#time-counter').text(this.formatNum(count+1));
+        }
     }
 
     clearTimer(){
