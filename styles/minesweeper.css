@@ -3,6 +3,7 @@
 	border: 5px groove lightgrey;
 	table-layout: fixed;
 	border-spacing: 0;
+	overflow: scroll;
 	
 }
 
@@ -49,7 +50,70 @@ td {
 
 .menu-item:hover{
 	background: darkgrey;
+	cursor: pointer;
 }
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	/*background-color: #333;*/
+}
+
+li {
+	float: left;
+}
+
+li a, .dropbtn {
+	display: inline-block;
+	color: black;
+	text-align: center;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+	font-weight:normal;
+	font-size: 12px;
+	/*margin: 15px;*/
+	/*padding: 0px 16px;*/
+	padding-left: 5px;
+	padding-right: 15px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+	background-color: darkgrey;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #D3D3D3;
+	border-style: groove;
+	min-width: 100px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 10px 5px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+
+
+
 
 .title-bar{
 	page-break-inside: avoid;
@@ -172,14 +236,16 @@ input{
 .btnNewGame{
 	height: 50px;
 	width: 50px;
+	border-radius: 25px;
 	color: Black;
 	background: yellow;
-	font-size: 36px;
+	line-height: 24px;
+	font-size: 24px;
 	font-weight: bolder;
 	/*
 	text-shadow: 1px 1px 2px black, 0 0 25px lightgray, 0 0 5px gray;
 		*/
-	vertical-align: middle;
+	/*vertical-align: middle;*/
 
 }
 
