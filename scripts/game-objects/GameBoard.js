@@ -14,6 +14,10 @@ class GameBoard{
 		this.rightClickActive = false;
 		this.selectedTile =  null;
         this.timerHandler = null;
+		this.border = {
+			openTiles: new Set(),
+			closedTiles: new Set(),
+		};
         this.flags = $('<span>')
             .attr('id','mine-counter')
             .text(this.formatNum(this.mineCount))
@@ -21,9 +25,15 @@ class GameBoard{
         this.html = $('<table>')
             .attr('id','game')
             .append($('<tr>')
+				.css('background','darkblue')
                 .append($('<th>')
-                    .addClass('title-bar')
-                    .text('NoGuess Minesweeper')))
+					//.append($('<a href=#>')
+					.append($('<span>')
+						.addClass('title-bar')
+						.text('NoGuess Minesweeper'))
+					.append($('<a href=#>')
+						.addClass('x-button')
+						.text(this.symbols.xMark))))
             .append($('<tr>')
                 .append($('<th>')
                     .addClass('menu-bar')
@@ -31,7 +41,7 @@ class GameBoard{
                         .append($('<li>')
                             .addClass('dropdown')
                             .append($('<a href="#">')
-                                .addClass('dropdown')
+                                .addClass('dropbtn')
                                 .text('Game'))
                             .append($('<div>')
                                 .addClass('dropdown-content')
@@ -42,14 +52,18 @@ class GameBoard{
                         .append($('<li>')
                             .addClass('dropdown')
                             .append($('<a href="#">')
-                                .addClass('dropdown')
+                                .addClass('dropbtn')
                                 .text('Help'))
                             .append($('<div>')
                                 .addClass('dropdown-content')
                                 .append($('<a href="#">')
                                     .text('About'))
                                 .append($('<a href="#">')
-                                    .text('How to play')))))))
+                                    .text('How to play'))))
+						.append($('<li>')
+							.append($('<a href=#>')
+								.attr('id','show-borderBtn')
+								.text('Show border'))))))
 
                     // .append($('<a href=#>').text('Game').addClass('menu-item'))
 					// .append($('<a href=#>').text('Difficulty').addClass('menu-item'))
@@ -118,7 +132,7 @@ class GameBoard{
         this.board.forEach(
             line =>line.forEach(
                 tile => tile.bombCount=
-                    (this.getNeighbours(tile.row,tile.col).filter(x=>x.hasMine)).length));
+                    (this.getNeighbours(tile).filter(x=>x.hasMine)).length));
     }
 
     generateField(){
@@ -161,13 +175,15 @@ class GameBoard{
         alert(`You won! Your time: ${Number(this.html.find('#time-counter').text())} seconds.`);
     }
 
-    cascadeOpen(row, col){
-        for (let neighbour of this.getNeighbours(row,col)){
+    cascadeOpen(tile){
+        for (let neighbour of this.getNeighbours(tile)){
             neighbour.open();
         }
     }
 
-    getNeighbours(row, col){
+    getNeighbours(tile){
+		let row = tile.row;
+		let col = tile.col;
         let result =[];
         let coordMap = [
             [row+1, col],
@@ -191,7 +207,7 @@ class GameBoard{
     }
 	
 	uncoverSelection(){
-		let neighbours = this.getNeighbours(this.selectedTile.row, this.selectedTile.col);
+		let neighbours = this.getNeighbours(this.selectedTile);
 		if (neighbours.filter(x=>x.isMarked).length==this.selectedTile.bombCount){
 			neighbours.forEach(x=>x.open());
 		} else {
@@ -201,13 +217,13 @@ class GameBoard{
 	
 	selectNeighbours(tile){
 		this.selectedTile = tile;
-		let neighbours = this.getNeighbours(tile.row, tile.col);
+		let neighbours = this.getNeighbours(tile);
 		$(neighbours.filter(x=>!(x.isMarked || x.isOpen)).map(y=>y.html))
 			.toggleClass('closed-tile open-title');
 	}
 	
 	deselectTiles(){
-		let neighbours = this.getNeighbours(this.selectedTile.row, this.selectedTile.col);
+		let neighbours = this.getNeighbours(this.selectedTile);
 		$(neighbours.filter(x=>!(x.isMarked || x.isOpen)).map(y=>y.html))
 			.toggleClass('closed-tile open-title');
 		this.selectedTile =  null;
@@ -242,8 +258,19 @@ class GameBoard{
     clearTimer(){
         this.stopTimer();
         this.html.find('#time-counter').text('000');
-
     }
+	
+	pauseGame(){
+		if (!this.gameStarted) return;
+		if (this.timerHandler) {
+			this.stopTimer();
+			$('#myModal').css('display','block');
+		}
+		else {
+			this.startTimer();
+			$('#myModal').css('display','none');
+		}
+	}
 
     flagsLeft(){
         if (this.flags.text()==0) return false;

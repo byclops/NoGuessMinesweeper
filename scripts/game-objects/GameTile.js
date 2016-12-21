@@ -52,6 +52,9 @@ class GameTile{
             }
 
         } else {
+			this.game.border.openTiles.delete(this);
+			this.game.border.closedTiles.add(...this.game.getNeighbours(this).filter(x=>!x.isOpen));
+			console.log(this.game.border.openTiles)
             this.isOpen=true;
             if (!this.game.timerHandler && !this.game.gameOver) this.game.startGame();
             this.game.freeTilesLeft--;
@@ -59,7 +62,7 @@ class GameTile{
             if (this.bombCount) this.html.val(this.bombCount);
             this.html.toggleClass('closed-tile');
             this.html.addClass(`open-tile open-tile-${this.bombCount}`);
-            if (this.bombCount==0) this.game.cascadeOpen(this.row, this.col);
+            if (this.bombCount==0) this.game.cascadeOpen(this);
         }
     }
 
