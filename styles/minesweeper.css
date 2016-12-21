@@ -126,7 +126,7 @@ li.dropdown {
 	vertical-align: middle;
 	padding-right: 12px;
 	padding-left: 12px;
-	border-bottom-style: groove
+	/*border-bottom-style: groove;*/
 	text-decoration: none;
 	
 }
@@ -188,10 +188,7 @@ input{
 	*/
 }
 
-.highlighted-tile{
-	background-color: gold;
-	font-weight:bold;
-}
+
 
 .closed-tile:hover{
 	background-color: lightsteelblue;
@@ -342,6 +339,16 @@ input{
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+}
+
+.highlighted-tile{
+    background-color: gold;
+    font-weight:bold;
+}
+
+.highlighted-tile-2{
+    background-color: darkred;
+    font-weight:bold;
 }
 
 input:focus {

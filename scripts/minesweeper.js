@@ -28,12 +28,14 @@ function startApp(){
 	$('.modal').click(game.pauseGame.bind(game));
 	$('#show-borderBtn').on('mousedown', function(){
 		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
-		console.log(Array.from(game.border.closedTiles));
+		$(Array.from(game.border.openTiles).map(x=>x.html)).toggleClass('highlighted-tile-2');
+		console.log(Array.from(game.border.openTiles).map(x=>x.html))
 	})
 	$('#show-borderBtn').on('mouseup', function(){
 		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
-			console.log('up');
-	})
+        $(Array.from(game.border.openTiles).map(x=>x.html)).toggleClass('highlighted-tile-2');
+
+    })
 	$(window).blur(game.pauseGame.bind(game));
 	//window.resizeTo(800, 600);
 }

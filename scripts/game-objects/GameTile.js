@@ -52,9 +52,10 @@ class GameTile{
             }
 
         } else {
-			this.game.border.openTiles.delete(this);
-			this.game.border.closedTiles.add(...this.game.getNeighbours(this).filter(x=>!x.isOpen));
-			console.log(this.game.border.openTiles)
+			this.game.border.openTiles.add(this);
+            this.game.getNeighbours(this).filter(x=>!x.isOpen).forEach(x=>this.game.border.closedTiles.add(x))
+			// this.game.border.openTiles.forEach(x=>if (this.game.getNeighbours(x).filter))
+            // console.log(this.game.border.openTiles)
             this.isOpen=true;
             if (!this.game.timerHandler && !this.game.gameOver) this.game.startGame();
             this.game.freeTilesLeft--;
