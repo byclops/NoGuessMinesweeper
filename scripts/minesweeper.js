@@ -29,7 +29,7 @@ function startApp(){
 	$('#show-borderBtn').on('mousedown', function(){
 		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
 		$(Array.from(game.border.openTiles).map(x=>x.html)).toggleClass('highlighted-tile-2');
-		console.log(Array.from(game.border.openTiles).map(x=>x.html))
+		//console.log(Array.from(game.border.openTiles).map(x=>x.html))
 	})
 	$('#show-borderBtn').on('mouseup', function(){
 		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');

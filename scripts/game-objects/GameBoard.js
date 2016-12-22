@@ -14,6 +14,7 @@ class GameBoard{
 		this.rightClickActive = false;
 		this.selectedTile =  null;
         this.timerHandler = null;
+		//this.front =[];
 		this.border = {
 			openTiles: new Set(),
 			closedTiles: new Set(),
