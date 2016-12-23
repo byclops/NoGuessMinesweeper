@@ -10,6 +10,7 @@ class GameTile{
         this.hasMine = false;
         this.isOpen = false;
         this.isMarked = false;
+		this.isFront = false;
         this.html= $('<input type="button">')
             .addClass("game-tile closed-tile")
             .attr("row",row)
@@ -52,8 +53,25 @@ class GameTile{
             }
 
         } else {
-			this.game.border.openTiles.add(this);
-            this.game.getNeighbours(this).filter(x=>!x.isOpen).forEach(x=>this.game.border.closedTiles.add(x))
+			//this.game.border.openTiles.add(this);
+			this.game.frontLine.addNeighbours(this);
+			
+			
+			
+			//this.game.border.closedTiles.delete(this);
+            //this.game.getNeighbours(this).filter(x=>!x.isOpen).forEach(x=>this.game.border.closedTiles.add(x));
+			
+			//this.game.openTiles = new Set(Array.from(this.game.border.openTiles).filter(x=>this.game.getNeighbours(x).filter(y=>this.game.border.closedTiles.has(y)).length<0));
+			
+			for (let tile of this.game.border.openTiles) {
+				//console.log(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)))
+				//tile.html.val(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length)
+				if (this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length==0) {
+					this.game.border.openTiles.delete(tile);
+				}
+			}
+			
+			//this.game.border.openTiles.forEach(x=>if (this.game.getNeighbours(x).filter(y=>this.game.closedTiles.has(y)).length==0) this.game.border.openTiles.delete(x));
 			// this.game.border.openTiles.forEach(x=>if (this.game.getNeighbours(x).filter))
             // console.log(this.game.border.openTiles)
             this.isOpen=true;

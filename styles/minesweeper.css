@@ -348,6 +348,7 @@ input{
 
 .highlighted-tile-2{
     background-color: darkred;
+	color: white;
     font-weight:bold;
 }
 

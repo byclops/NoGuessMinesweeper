@@ -27,15 +27,19 @@ function startApp(){
 	$('.x-button').click(game.pauseGame.bind(game));
 	$('.modal').click(game.pauseGame.bind(game));
 	$('#show-borderBtn').on('mousedown', function(){
-		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
-		$(Array.from(game.border.openTiles).map(x=>x.html)).toggleClass('highlighted-tile-2');
-		//console.log(Array.from(game.border.openTiles).map(x=>x.html))
+		//$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
+		$(Array.from(game.frontLine.closedSide).map(x=>x.html)).toggleClass('highlighted-tile-2');
+		$(Array.from(game.frontLine.openSide).map(x=>x.html)).toggleClass('highlighted-tile');
+		console.log(game.frontLine.links)
+
 	})
 	$('#show-borderBtn').on('mouseup', function(){
-		$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
-        $(Array.from(game.border.openTiles).map(x=>x.html)).toggleClass('highlighted-tile-2');
+		//$(Array.from(game.border.closedTiles).map(x=>x.html)).toggleClass('highlighted-tile');
+		$(Array.from(game.frontLine.closedSide).map(x=>x.html)).toggleClass('highlighted-tile-2');
+		$(Array.from(game.frontLine.openSide).map(x=>x.html)).toggleClass('highlighted-tile');
 
     })
+	
 	$(window).blur(game.pauseGame.bind(game));
 	//window.resizeTo(800, 600);
 }

@@ -8,6 +8,7 @@ class GameBoard{
         this.maxCols = maxCols;
         this.mineCount = mineCount;
         this.freeTilesLeft = maxRows*maxCols-mineCount;
+		this.frontLine = new FrontLine(this);
         this.gameStarted = false;
         this.gameOver = false;
 		this.leftClickActive = false
@@ -114,6 +115,8 @@ class GameBoard{
             let col = Math.round(Math.random()*(this.maxCols-1));
             if((!this.board[row][col].hasMine) && (!this.board[row][col].isOpen)){
                 this.board[row][col].hasMine= true;
+				//uncoment the next line to reveal the bombs for debug purposes
+				this.board[row][col].html.val(this.symbols.mineDetailed).css('font-size', '12px')
                 minesLeft--;
             }
 
@@ -172,6 +175,8 @@ class GameBoard{
 
     gameWon(){
         this.stopTimer();
+		this.gameOver = true;
+        this.gameStarted = false;
         $('#btnNewGame').val(this.symbols.won);
         alert(`You won! Your time: ${Number(this.html.find('#time-counter').text())} seconds.`);
     }
