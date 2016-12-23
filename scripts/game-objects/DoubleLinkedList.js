@@ -1,10 +1,18 @@
-class DoubleLinkedList(){
-	constructor(node){
+class DoubleLinkedList{
+	constructor(startNode, endNode){
 		this.start = new TerminatorNode();
 		this.end = new TerminatorNode();
 		this.start.next = this.end;
 		this.end.prev = this.start;
-		if (node) this.insertAfter(start, node);
+		// if (startNode) this.insertAfter(start, startNode);
+		if (startNode) {
+			this.start.next = startNode;
+			if (endNode) {
+				this.end.prev = endNode;
+			} else {
+				this.end.prev = startNode;
+			}
+		}
 	}
 	
 	get first(){
@@ -46,11 +54,14 @@ class DoubleLinkedList(){
 		linkedList.first.prev = this.last;
 	}
 	
-	deleteNode(node){
-		let newStart = new TerminatorNode();
-		let newEnd = new TerminatorNode();
-		node.prev.next = new TerminatorNode();
-		node.next.prev = new TerminatorNode();
+	split(node){
+		let newList = new DoubleLinkedList(node.next, this.last);
+		this.end.prev = node.prev;
+		return newList;
+		// let newStart = new TerminatorNode();
+		// let newEnd = new TerminatorNode();
+		// node.prev.next = new TerminatorNode();
+		// node.next.prev = new TerminatorNode();
 	}
 	
 	//splitAfter(node){

@@ -1,4 +1,4 @@
-class FrontLine{
+class FrontLine {
 	constructor(gameBoard){
 		this.db =[];
 		this.gameBoard = gameBoard;
@@ -6,13 +6,22 @@ class FrontLine{
 	
 	contains(tile){
 		for (let fragment of db){
-			if ()
+			if (fragment.contains(tile)) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 	
 	
 	add(tile){
-		let neighbours = this.gameBoard.getNeighbours(tile);
+		let closedNeighbours = this.gameBoard.getNeighbours(tile).filter(x=>!x.isOpen);
+		//if (this.contains(tile))
+		for (let fragment of db) {
+			if ()
+		}
+
 		
 	}
 
