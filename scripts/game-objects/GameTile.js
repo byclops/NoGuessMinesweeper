@@ -5,7 +5,7 @@ class GameTile{
     constructor(row, col, game){
         this.row = row;
         this.col = col;
-        this.id = row*game.maxCols+col+1;
+        this.id = row*game.maxCols+col;
         this.game = game;
         this.bombCount = 0;
         this.hasMine = false;
@@ -41,6 +41,7 @@ class GameTile{
     }
 
     open(){
+		//console.dir(this.game.getTileById(this.id));
         if (this.isMarked || this.isOpen) return;
         if (this.hasMine) {
             this.isOpen = true;
@@ -64,11 +65,12 @@ class GameTile{
 			
 			//this.game.openTiles = new Set(Array.from(this.game.border.openTiles).filter(x=>this.game.getNeighbours(x).filter(y=>this.game.border.closedTiles.has(y)).length<0));
 			
-			for (let tile of this.game.border.openTiles) {
+			for (let tile of this.game.frontLine.openSide) {
 				//console.log(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)))
 				//tile.html.val(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length)
-				if (this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length==0) {
-					this.game.border.openTiles.delete(tile);
+				//if (this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length==0) {
+				if (this.game.getNeighbours(tile).filter(x=>this.game.frontLine.closedSide.has(x)).length==0) {
+					this.game.frontLine.openSide.delete(tile);
 				}
 			}
 			
