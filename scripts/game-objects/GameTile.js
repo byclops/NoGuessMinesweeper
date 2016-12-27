@@ -5,6 +5,7 @@ class GameTile{
     constructor(row, col, game){
         this.row = row;
         this.col = col;
+        this.id = row*game.maxCols+col+1;
         this.game = game;
         this.bombCount = 0;
         this.hasMine = false;

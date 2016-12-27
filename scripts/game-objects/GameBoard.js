@@ -16,10 +16,10 @@ class GameBoard{
 		this.selectedTile =  null;
         this.timerHandler = null;
 		//this.front =[];
-		this.border = {
-			openTiles: new Set(),
-			closedTiles: new Set(),
-		};
+		// this.border = {
+		// 	openTiles: new Set(),
+		// 	closedTiles: new Set(),
+		// };
         this.flags = $('<span>')
             .attr('id','mine-counter')
             .text(this.formatNum(this.mineCount))
@@ -108,6 +108,10 @@ class GameBoard{
         this.board = this.generateField();
     }
 
+    getTileById(id){
+        return this.board[Math.floor(id/this.maxCols)][id%this.maxCols];
+    }
+
     plantMines(){
         let minesLeft = this.mineCount;
         while (minesLeft>0){
@@ -116,7 +120,7 @@ class GameBoard{
             if((!this.board[row][col].hasMine) && (!this.board[row][col].isOpen)){
                 this.board[row][col].hasMine= true;
 				//uncoment the next line to reveal the bombs for debug purposes
-				this.board[row][col].html.val(this.symbols.mineDetailed).css('font-size', '12px')
+				this.board[row][col].html.val(this.symbols.mineDetailed).css('font-size', '12px')   
                 minesLeft--;
             }
 
@@ -150,6 +154,8 @@ class GameBoard{
             for (let col=0; col<this.maxCols; col++){
                 let currentTile = new GameTile(row, col,this);
                 result[row][col]= currentTile;
+                // console.log(currentTile.id);
+                // console.dir(this.getTileById(currentTile.id));
                 currentRow.append(currentTile.html);
 
             }
