@@ -1,38 +1,39 @@
 class FrontLine {
 	constructor(game){
-		this.openSide = new Set();
-		this.closedSide = new Set();
-		this.links = {};
+		this._openSide = new SetArray();
+		this._closedSide = new SetArray();
 		this.game = game;
 	}
 	
-	addNeighbours(tile){
+	updateFront(tile){
 		let neighbours = this.game.getNeighbours(tile)
-		this.closedSide.delete(tile);
-		for (let key in this.links){
-			let index = this.links[key].indexOf(tile);
-			this.links[key].splice(index,1);
-			if (this.links[key].length == 0){
-				delete this.links[key];
-				this.openSide.delete(tile);
-			}
-		}
-		
-		neighbours.filter(x=>!x.isOpen).forEach(x=>this.closedSide.add(x));
-		for (let neighbour of neighbours.filter(x=>x.isOpen)){
-			this.openSide.add(tile);
-			let key = neighbour.id;
-			if (this.links[key]) this.links[key].push(tile);
-			else this.links[key] = [tile];	
-		}		
+		this._closedSide.delete(tile);
+		this._openSide.delink(tile);		
+		neighbours.filter(x=>!x.isOpen).forEach(x=>this._closedSide.add(x));
+		this.linkNeighbours(tile, neighbours.filter(x=>x.isOpen));	
 	}
 	
-	//get openSide(){
-	//	let result = new Set();
-	//	for (let tile of this.closedSide){
-	//		this.game.getNeighbours(tile).filter(x=>x.isOpen).forEach(y=>result.add(y));
-	//	}
-	//	return result;
-	//}
-
+	linkTiles(closedTile, openTile){
+		this._closedSide.link(closedTile, openTile);
+		this._openSide.link(openTile, closedTile);
+	}
+	
+	linkNeighbours(closedTile, neighbours){
+		for (let neighbour in neighbours){
+			this._closedSide.link(closedTile, neighbour);
+			this._openSide.link(neighbour, closedTile);
+		}
+	}
+	
+	cleanupOpenSide(){
+		
+	}
+	
+	get closedSide(){
+		return this._closedSide.tiles;
+	}
+	
+	get openSide(){
+		return this._openSide.tiles;
+	}
 }

@@ -55,28 +55,15 @@ class GameTile{
             }
 
         } else {
-			//this.game.border.openTiles.add(this);
-			this.game.frontLine.addNeighbours(this);
+
+			this.game.frontLine.updateFront(this);
 			
+			//for (let tile of this.game.frontline.openside) {
+			//	if (this.game.getneighbours(tile).filter(x=>this.game.frontline.closedside.has(x)).length==0) {
+			//		this.game.frontline.openside.delete(tile);
+			//	}
+			//}
 			
-			
-			//this.game.border.closedTiles.delete(this);
-            //this.game.getNeighbours(this).filter(x=>!x.isOpen).forEach(x=>this.game.border.closedTiles.add(x));
-			
-			//this.game.openTiles = new Set(Array.from(this.game.border.openTiles).filter(x=>this.game.getNeighbours(x).filter(y=>this.game.border.closedTiles.has(y)).length<0));
-			
-			for (let tile of this.game.frontLine.openSide) {
-				//console.log(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)))
-				//tile.html.val(this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length)
-				//if (this.game.getNeighbours(tile).filter(x=>this.game.border.closedTiles.has(x)).length==0) {
-				if (this.game.getNeighbours(tile).filter(x=>this.game.frontLine.closedSide.has(x)).length==0) {
-					this.game.frontLine.openSide.delete(tile);
-				}
-			}
-			
-			//this.game.border.openTiles.forEach(x=>if (this.game.getNeighbours(x).filter(y=>this.game.closedTiles.has(y)).length==0) this.game.border.openTiles.delete(x));
-			// this.game.border.openTiles.forEach(x=>if (this.game.getNeighbours(x).filter))
-            // console.log(this.game.border.openTiles)
             this.isOpen=true;
             if (!this.game.timerHandler && !this.game.gameOver) this.game.startGame();
             this.game.freeTilesLeft--;
